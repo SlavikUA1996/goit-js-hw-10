@@ -18,21 +18,21 @@ function onCountryInput() {
     const name = input.value.trim()
 
     if (name === '') {
-        return (list.innerHTML = ''), (info.innerHTML = '')  
+        return (list.innerHTML = ''), (info.innerHTML = ''); 
     }
 
     fetchCountries(name)
         .then(countries => {
-            list.innerHTML = ''
-            info.innerHTML = ''
-
+            list.innerHTML = '';
+            info.innerHTML = '';
+;
             if (countries.length === 1) {
-                list.insertAdjacentHTML('beforeend', renderList(countries))
-                info.insertAdjacentHTML('beforeend', renderInfo(countries))
+                list.insertAdjacentHTML('beforeend', renderList(countries));
+                info.insertAdjacentHTML('beforeend', renderInfo(countries));
             } else if (countries.lenght >= 10) {
                 alertTooManyMatches()
             } else {
-                list.insertAdjacentHTML('beforeend', renderList(countries))
+                list.insertAdjacentHTML('beforeend', renderList(countries));
             }
         })
     .catch(alertWrongName)
@@ -46,7 +46,7 @@ function renderList(countries) {
               <h2 >${name.official}</h2>
           </li>`
         }).join('')
-    return markup
+    return markup;
 }
 
 function renderInfo(countries) {
@@ -59,13 +59,13 @@ function renderInfo(countries) {
             <li ><p><b>Languages: </b>${Object.values(languages).join(', ')}</p></li>
         </ul>`
         }).join('')
-    return markup
+    return markup;
 }
 
 function alertWrongName() {
-    Notiflix.Notify.failure('Oops, there is no country with that name')
+    Notiflix.Notify.failure('Oops, there is no country with that name');
 }
 
 function alertTooManyMatches() {
-    Notiflix.Notify.info('Too many matches found. Please enter a more specific name.')
+    Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
 }
