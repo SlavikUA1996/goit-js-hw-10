@@ -6,8 +6,8 @@ import { fetchCountries } from './js/fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 const input = document.querySelector("#search-box");
-const list = document.querySelector("country-list");
-const info = document.querySelector("country-info");
+const list = document.querySelector(".country-list");
+const info = document.querySelector(".country-info");
 
 // let searchCountryName = '';
 
@@ -18,7 +18,7 @@ function onCountryInput() {
     const name = input.value.trim()
 
     if (name === '') {
-     return (list.innerHTML = ''), (info.innerHTML = '')   
+        return (list.innerHTML = ''), (info.innerHTML = '')  
     }
 
     fetchCountries(name)
@@ -38,14 +38,25 @@ function onCountryInput() {
     .catch(alertWrongName)
 }
 
+function renderList(countries) {
+    const markup = countries
+        .map(({ name, flags }) => {
+        return `<li>
+              <img  src="${flags.svg}" alt="Flag of ${name.official}" width = 40px height = 40px>
+              <h2 >${name.official}</h2>
+          </li>`
+        }).join('')
+    return markup
+}
+
 function renderInfo(countries) {
     const markup = countries
         .map(({ capital, population, languages }) => {
         
-            return `<ul class="country-info__list">
-            <li class="country-info__item"><p><b>Capital: </b>${capital}</p></li>
-            <li class="country-info__item"><p><b>Population: </b>${population}</p></li>
-            <li class="country-info__item"><p><b>Languages: </b>${Object.values(languages).join(', ')}</p></li>
+            return `<ul >
+            <li ><p><b>Capital: </b>${capital}</p></li>
+            <li ><p><b>Population: </b>${population}</p></li>
+            <li ><p><b>Languages: </b>${Object.values(languages).join(', ')}</p></li>
         </ul>`
         }).join('')
     return markup
@@ -56,5 +67,5 @@ function alertWrongName() {
 }
 
 function alertTooManyMatches() {
-    Notiflix.Notify.failure('Too many matches found. Please enter a more specific name.')
+    Notiflix.Notify.info('Too many matches found. Please enter a more specific name.')
 }
