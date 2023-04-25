@@ -25,17 +25,17 @@ function onCountryInput() {
         .then(countries => {
             list.innerHTML = '';
             info.innerHTML = '';
-;
+            ;
             if (countries.length === 1) {
                 list.insertAdjacentHTML('beforeend', renderList(countries));
                 info.insertAdjacentHTML('beforeend', renderInfo(countries));
-            } else if (countries.lenght >= 10) {
+            } else if (countries.length >= 10) {
                 alertTooManyMatches()
             } else {
                 list.insertAdjacentHTML('beforeend', renderList(countries));
             }
         })
-    .catch(alertWrongName)
+        .catch(alertWrongName);
 }
 
 function renderList(countries) {
